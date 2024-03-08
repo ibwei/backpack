@@ -1,6 +1,6 @@
 ## README
 
-#####  模拟在backpack人工刷交易量使用流程
+#####  在backpack人工刷交易量的油猴脚本
 - 安装 tampermonkey 浏览器插件https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo
 - 第二步，打开插件，创建新的脚本
 - 在创建页面，把脚本完全粘贴进去，默认的模版不要，然后保存。
