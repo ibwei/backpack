@@ -43,7 +43,7 @@ async function buySol() {
   await sleep(getWaitSeconds());
 
   // 然后点击市价单
-  const marketDom = findDomByText("Market", "p", 0);
+  const marketDom = findDomByText("Market", "div", 0);
   // console.log("marketDom", marketDom);
   marketDom && marketDom.click();
   await sleep(getWaitSeconds());
@@ -67,7 +67,7 @@ async function sellSol() {
   await sleep(getWaitSeconds());
 
   // 然后点击市价单
-  const marketDom = findDomByText("Market", "p", 0);
+  const marketDom = findDomByText("Market", "div", 0);
   // console.log("marketDom", marketDom);
   marketDom && marketDom.click();
   await sleep(getWaitSeconds());
