@@ -6,7 +6,6 @@
 - 在创建页面，把脚本完全粘贴进去，默认的模版不要，然后保存。
 
 ``` typescript
-脚本：
 // ==UserScript==
 // @name         刷backpack 交易量
 // @namespace    http://tampermonkey.net/
@@ -19,6 +18,16 @@
 // ==/UserScript==
 
 let count = 0;
+
+function getWaitSeconds() {
+  // 随机生成500到3000的数字
+  return Math.floor(Math.random() * 1000 + 100);
+}
+
+function getSwitchSeconds() {
+  // 随机生成500到3000的数字
+  return Math.floor(Math.random() * 2500 + 500);
+}
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -34,70 +43,63 @@ function findDomByText(text, tag, no) {
   return matches[no] ?? matches[0];
 }
 
-function checkBalance() {
-  console.log("solBalanceDom", solBalanceDom);
-}
-
 async function buySol() {
   // 先点击买
   const buyDom = findDomByText("Buy", "p", 0);
   // console.log("BuyDom", buyDom);
   buyDom && buyDom.click();
-  await sleep(100);
+  await sleep(getWaitSeconds());
 
   // 然后点击市价单
   const marketDom = findDomByText("Market", "p", 0);
   // console.log("marketDom", marketDom);
   marketDom && marketDom.click();
-  await sleep(100);
+  await sleep(getWaitSeconds());
 
   // 然后点击最大
   const maxDom = findDomByText("Max", "div", 0);
   // console.log("maxDom", maxDom);
   maxDom && maxDom.click();
-  await sleep(100);
+  await sleep(getWaitSeconds());
 
   // 买入
   const buyButtonDom = findDomByText("Buy", "button", 0);
   // console.log("buyButtonDom", buyButtonDom);
   buyButtonDom && buyButtonDom.click();
-  await sleep(100);
 }
 
 async function sellSol() {
   const sellDom = findDomByText("Sell", "p", 0);
   // console.log("sellDom", sellDom);
   sellDom && sellDom.click();
-  await sleep(100);
+  await sleep(getWaitSeconds());
 
   // 然后点击市价单
   const marketDom = findDomByText("Market", "p", 0);
   // console.log("marketDom", marketDom);
   marketDom && marketDom.click();
-  await sleep(100);
+  await sleep(getWaitSeconds());
 
   // 然后点击最大
   const maxDom = findDomByText("Max", "div", 0);
   // console.log("maxDom", maxDom);
   maxDom && maxDom.click();
-  await sleep(100);
+  await sleep(getWaitSeconds());
 
   // 卖出;
   const sellButtonDom = findDomByText("Sell", "button", 0);
   // console.log("sellButtonDom", sellButtonDom);
   sellButtonDom && sellButtonDom.click();
-  await sleep(100);
 }
 
 async function runWork() {
   count++;
   console.log(`开始第${count}次买SOL`);
-  buySol();
-  await sleep(2000);
+  await sleep(getSwitchSeconds());
+  await buySol();
+  await sleep(getSwitchSeconds());
   console.log(`开始第${count}次卖SOL`);
-  sellSol();
-  // const buyButtonDom = findDomByText("Buy", "button", 0);
-  // console.log("buyButtonDom", buyButtonDom);
+  await sellSol();
 }
 
 function runTimer() {
@@ -113,7 +115,6 @@ function runTimer() {
 (function () {
   "use strict";
   runTimer();
-  // Your code here...
 })();
 ```
 
